@@ -1,0 +1,190 @@
+---
+title: SQL Queries
+description: Essential SQL commands and queries
+tags: ['sql', 'database', 'queries']
+---
+
+# SQL Queries
+
+## SELECT Queries
+
+Basic selection:
+
+```sql
+SELECT * FROM users;
+SELECT name, email FROM users;
+SELECT DISTINCT country FROM users;
+SELECT * FROM users LIMIT 10;
+SELECT * FROM users OFFSET 20 LIMIT 10;
+```
+
+## WHERE Clauses
+
+Filter results:
+
+```sql
+SELECT * FROM users WHERE age > 18;
+SELECT * FROM users WHERE country = 'USA';
+SELECT * FROM users WHERE age BETWEEN 18 AND 65;
+SELECT * FROM users WHERE name LIKE 'John%';
+SELECT * FROM users WHERE email IS NOT NULL;
+SELECT * FROM users WHERE country IN ('USA', 'UK', 'CA');
+```
+
+## ORDER BY
+
+Sort results:
+
+```sql
+SELECT * FROM users ORDER BY age;
+SELECT * FROM users ORDER BY age DESC;
+SELECT * FROM users ORDER BY country ASC, age DESC;
+```
+
+## Aggregate Functions
+
+Count, sum, average:
+
+```sql
+SELECT COUNT(*) FROM users;
+SELECT COUNT(DISTINCT country) FROM users;
+SELECT AVG(age) FROM users;
+SELECT SUM(total) FROM orders;
+SELECT MIN(price), MAX(price) FROM products;
+```
+
+## GROUP BY
+
+Group and aggregate:
+
+```sql
+SELECT country, COUNT(*) as user_count
+FROM users
+GROUP BY country;
+
+SELECT status, AVG(total) as avg_total
+FROM orders
+GROUP BY status
+HAVING AVG(total) > 100;
+```
+
+## JOINS
+
+Combine tables:
+
+```sql
+SELECT users.name, orders.total
+FROM users
+INNER JOIN orders ON users.id = orders.user_id;
+
+SELECT users.name, orders.total
+FROM users
+LEFT JOIN orders ON users.id = orders.user_id;
+
+SELECT users.name, orders.total
+FROM users
+RIGHT JOIN orders ON users.id = orders.user_id;
+
+SELECT u.name, o.total
+FROM users u
+CROSS JOIN orders o;
+```
+
+## INSERT
+
+Add data:
+
+```sql
+INSERT INTO users (name, email, age)
+VALUES ('John Doe', 'john@example.com', 30);
+
+INSERT INTO users (name, email)
+VALUES
+  ('Alice', 'alice@example.com'),
+  ('Bob', 'bob@example.com');
+
+INSERT INTO users_backup
+SELECT * FROM users WHERE active = true;
+```
+
+## UPDATE
+
+Modify data:
+
+```sql
+UPDATE users
+SET age = 31
+WHERE id = 1;
+
+UPDATE users
+SET status = 'inactive', updated_at = NOW()
+WHERE last_login < '2023-01-01';
+```
+
+## DELETE
+
+Remove data:
+
+```sql
+DELETE FROM users WHERE id = 1;
+DELETE FROM users WHERE active = false;
+DELETE FROM users WHERE created_at < '2020-01-01';
+```
+
+## CREATE TABLE
+
+Define tables:
+
+```sql
+CREATE TABLE users (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name VARCHAR(100) NOT NULL,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  age INTEGER,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX idx_email ON users(email);
+```
+
+## ALTER TABLE
+
+Modify tables:
+
+```sql
+ALTER TABLE users ADD COLUMN phone VARCHAR(20);
+ALTER TABLE users DROP COLUMN phone;
+ALTER TABLE users RENAME COLUMN name TO full_name;
+ALTER TABLE users MODIFY COLUMN age BIGINT;
+```
+
+## Subqueries
+
+Nested queries:
+
+```sql
+SELECT * FROM users
+WHERE id IN (
+  SELECT user_id FROM orders WHERE total > 1000
+);
+
+SELECT name, (
+  SELECT COUNT(*) FROM orders WHERE orders.user_id = users.id
+) as order_count
+FROM users;
+```
+
+## Common Functions
+
+String and date functions:
+
+```sql
+SELECT UPPER(name), LOWER(email) FROM users;
+SELECT CONCAT(first_name, ' ', last_name) FROM users;
+SELECT LENGTH(name) FROM users;
+SELECT SUBSTRING(email, 1, 5) FROM users;
+
+SELECT NOW();
+SELECT DATE('2024-01-15');
+SELECT YEAR(created_at), MONTH(created_at) FROM orders;
+```

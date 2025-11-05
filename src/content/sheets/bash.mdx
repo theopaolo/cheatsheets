@@ -1,0 +1,157 @@
+---
+title: Bash Commands
+description: Essential Linux and Bash commands
+tags: ['bash', 'linux', 'terminal']
+---
+
+# Bash Commands
+
+## File Operations
+
+Navigate and list:
+
+```bash
+pwd
+ls -la
+cd /path/to/directory
+cd ..
+cd ~
+```
+
+Copy, move, delete:
+
+```bash
+cp file.txt destination/
+cp -r directory/ destination/
+mv oldname.txt newname.txt
+rm file.txt
+rm -rf directory/
+```
+
+## File Viewing
+
+Read file contents:
+
+```bash
+cat file.txt
+less file.txt
+head -n 10 file.txt
+tail -n 20 file.txt
+tail -f logfile.txt
+```
+
+## Search and Find
+
+Find files:
+
+```bash
+find . -name "*.txt"
+find /path -type f -mtime -7
+find . -size +100M
+```
+
+Search content:
+
+```bash
+grep "pattern" file.txt
+grep -r "pattern" directory/
+grep -i "case-insensitive" file.txt
+grep -n "show-line-numbers" file.txt
+```
+
+## Permissions
+
+Change permissions:
+
+```bash
+chmod 755 script.sh
+chmod +x script.sh
+chmod u+w file.txt
+chown user:group file.txt
+```
+
+## Process Management
+
+View and manage processes:
+
+```bash
+ps aux
+ps aux | grep process-name
+top
+htop
+kill 1234
+kill -9 1234
+killall process-name
+```
+
+## Pipes and Redirection
+
+Combine commands:
+
+```bash
+command > output.txt
+command >> append.txt
+command 2> error.txt
+command1 | command2
+command1 && command2
+command1 || command2
+```
+
+## Variables and Environment
+
+Set variables:
+
+```bash
+export VAR_NAME="value"
+echo $VAR_NAME
+echo $PATH
+env
+printenv
+```
+
+## Compression
+
+Archive and compress:
+
+```bash
+tar -czf archive.tar.gz directory/
+tar -xzf archive.tar.gz
+zip -r archive.zip directory/
+unzip archive.zip
+```
+
+## Network
+
+Network commands:
+
+```bash
+curl https://api.example.com
+wget https://example.com/file.zip
+ping google.com
+netstat -tuln
+ssh user@hostname
+scp file.txt user@host:/path/
+```
+
+## Disk Usage
+
+Check disk space:
+
+```bash
+df -h
+du -sh directory/
+du -h --max-depth=1
+```
+
+## Text Processing
+
+Process text:
+
+```bash
+sed 's/old/new/g' file.txt
+awk '{print $1}' file.txt
+cut -d',' -f1,3 file.csv
+sort file.txt
+uniq file.txt
+wc -l file.txt
+```

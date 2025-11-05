@@ -1,17 +1,88 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Sheet from '../components/Sheet.astro';
+import { getCollection } from 'astro:content';
+
+const sheets = await getCollection('sheets');
+const sheetsWithContent = await Promise.all(
+	sheets.map(async (sheet) => {
+		const { Content } = await sheet.render();
+		return { sheet, Content };
+	})
+);
 ---
 
-<Layout>
+<Layout title="Dev Cheatsheets" description="Quick reference guides for developers">
+	<main class="container">
+		<header class="site-header">
+			<h1>Dev Cheatsheets</h1>
+			<p>Quick reference guides for developers</p>
+		</header>
 
-	<section class="list-of-sheets">
-		
-		<article class="sheet">
-			<h2>Name of cheat-sheets</h2>
-			<p>Description of the cheat</p>
-			<div class="preview">preview of the sheet on hover</div>
-		</article>
-
-	</section>
-
+		<section class="list-of-sheets">
+			{sheetsWithContent.map(({ sheet, Content }, index) => (
+				<Sheet
+					title={sheet.data.title}
+					href={`/sheets/${sheet.slug}`}
+					index={index}
+					Content={Content}
+				/>
+			))}
+		</section>
+	</main>
 </Layout>
+
+<style>
+	.container {
+		max-width: var(--container-max);
+		margin-inline: auto;
+		padding: var(--space-6);
+	}
+
+	.site-header {
+		text-align: center;
+		padding-block: var(--space-12);
+		margin-block-end: var(--space-8);
+	}
+
+	.site-header h1 {
+		font-size: var(--font-size-2xl);
+		margin-block-end: var(--space-3);
+		font-weight: 600;
+	}
+
+	.site-header p {
+		font-size: var(--font-size-md);
+		color: var(--color-text-muted);
+		margin: 0;
+	}
+
+	.list-of-sheets {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+		gap: var(--space-8);
+		padding-block-end: var(--space-16);
+	}
+
+	@media (min-width: 48em) {
+		.container {
+			padding: var(--space-8);
+		}
+
+		.site-header {
+			padding-block: var(--space-16);
+			margin-block-end: var(--space-12);
+		}
+
+		.list-of-sheets {
+			gap: var(--space-12);
+		}
+	}
+
+	@media print {
+		.site-header,
+		.list-of-sheets {
+			display: none;
+		}
+	}
+</style>

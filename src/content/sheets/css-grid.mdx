@@ -1,0 +1,126 @@
+---
+title: CSS Grid Guide
+description: Modern CSS Grid layout techniques
+tags: ['css', 'grid', 'layout']
+---
+
+# CSS Grid Guide
+
+## Basic Grid Container
+
+Create a grid container:
+
+```css
+.container {
+  display: grid;
+  grid-template-columns: 200px 200px 200px;
+  grid-template-rows: 100px 100px;
+  gap: 1rem;
+}
+```
+
+## Responsive Columns
+
+Auto-fit and minmax:
+
+```css
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+```
+
+## Grid Template Areas
+
+Named grid areas:
+
+```css
+.layout {
+  display: grid;
+  grid-template-areas:
+    "header header header"
+    "sidebar main main"
+    "footer footer footer";
+  grid-template-columns: 200px 1fr 1fr;
+  grid-template-rows: auto 1fr auto;
+}
+
+.header { grid-area: header; }
+.sidebar { grid-area: sidebar; }
+.main { grid-area: main; }
+.footer { grid-area: footer; }
+```
+
+## Grid Item Placement
+
+Span and positioning:
+
+```css
+.item {
+  grid-column: 1 / 3;
+  grid-row: 2 / 4;
+}
+
+.item-span {
+  grid-column: span 2;
+  grid-row: span 3;
+}
+```
+
+## Alignment
+
+Align items and content:
+
+```css
+.container {
+  justify-items: center;
+  align-items: center;
+  justify-content: space-between;
+  align-content: start;
+}
+
+.item {
+  justify-self: end;
+  align-self: start;
+}
+```
+
+## Fractional Units
+
+Using fr units:
+
+```css
+.grid {
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 100px 1fr 50px;
+}
+```
+
+## Auto Flow
+
+Control automatic placement:
+
+```css
+.grid {
+  grid-auto-flow: dense;
+  grid-auto-rows: minmax(100px, auto);
+  grid-auto-columns: 200px;
+}
+```
+
+## Nested Grids
+
+Grid within grid:
+
+```css
+.outer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.inner-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+```

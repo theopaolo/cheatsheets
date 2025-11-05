@@ -1,0 +1,182 @@
+---
+title: TypeScript Essentials
+description: Core TypeScript syntax and patterns
+tags: ['typescript', 'javascript', 'types']
+---
+
+# TypeScript Essentials
+
+## Basic Types
+
+Primitive types:
+
+```typescript
+let name: string = "John";
+let age: number = 30;
+let isActive: boolean = true;
+let nothing: null = null;
+let notDefined: undefined = undefined;
+```
+
+Arrays and tuples:
+
+```typescript
+let numbers: number[] = [1, 2, 3];
+let strings: Array<string> = ["a", "b", "c"];
+let tuple: [string, number] = ["age", 30];
+```
+
+## Interfaces
+
+Define object structure:
+
+```typescript
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  age?: number;
+}
+
+const user: User = {
+  id: 1,
+  name: "John Doe",
+  email: "john@example.com",
+};
+```
+
+Extending interfaces:
+
+```typescript
+interface Admin extends User {
+  role: string;
+  permissions: string[];
+}
+```
+
+## Type Aliases
+
+Create custom types:
+
+```typescript
+type ID = string | number;
+type Status = "pending" | "active" | "inactive";
+type Callback = (data: string) => void;
+
+type Point = {
+  x: number;
+  y: number;
+};
+```
+
+## Functions
+
+Typed functions:
+
+```typescript
+function add(a: number, b: number): number {
+  return a + b;
+}
+
+const multiply = (a: number, b: number): number => a * b;
+
+function greet(name: string, greeting?: string): string {
+  return `${greeting || "Hello"}, ${name}`;
+}
+```
+
+## Generics
+
+Generic functions:
+
+```typescript
+function identity<T>(arg: T): T {
+  return arg;
+}
+
+function getFirst<T>(arr: T[]): T | undefined {
+  return arr[0];
+}
+```
+
+Generic interfaces:
+
+```typescript
+interface Response<T> {
+  data: T;
+  status: number;
+  message: string;
+}
+
+const userResponse: Response<User> = {
+  data: { id: 1, name: "John", email: "john@example.com" },
+  status: 200,
+  message: "Success",
+};
+```
+
+## Union and Intersection Types
+
+Union types:
+
+```typescript
+type Result = Success | Error;
+type ID = string | number;
+
+function printId(id: string | number) {
+  console.log(id);
+}
+```
+
+Intersection types:
+
+```typescript
+type Person = { name: string };
+type Employee = { employeeId: number };
+type Staff = Person & Employee;
+
+const staff: Staff = {
+  name: "John",
+  employeeId: 123,
+};
+```
+
+## Type Guards
+
+Narrow types:
+
+```typescript
+function isString(value: unknown): value is string {
+  return typeof value === "string";
+}
+
+if (isString(value)) {
+  console.log(value.toUpperCase());
+}
+```
+
+## Utility Types
+
+Common utility types:
+
+```typescript
+type Partial<T> = { [P in keyof T]?: T[P] };
+type Required<T> = { [P in keyof T]-?: T[P] };
+type Readonly<T> = { readonly [P in keyof T]: T[P] };
+type Pick<T, K extends keyof T> = { [P in K]: T[P] };
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+```
+
+Usage examples:
+
+```typescript
+interface Todo {
+  title: string;
+  description: string;
+  completed: boolean;
+}
+
+type PartialTodo = Partial<Todo>;
+type TodoPreview = Pick<Todo, "title" | "completed">;
+type TodoInfo = Omit<Todo, "completed">;
+```

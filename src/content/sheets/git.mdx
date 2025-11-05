@@ -1,0 +1,139 @@
+---
+title: Git CLI Commands
+description: Essential Git commands for version control
+tags: ['git', 'cli', 'version-control']
+---
+
+# Git CLI Commands
+
+## Configuration
+
+Set your identity:
+
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "your@email.com"
+```
+
+## Basic Commands
+
+Initialize a repository:
+
+```bash
+git init
+```
+
+Clone a repository:
+
+```bash
+git clone https://github.com/user/repo.git
+```
+
+Check status:
+
+```bash
+git status
+```
+
+## Staging and Committing
+
+Add files to staging:
+
+```bash
+git add .
+git add filename.txt
+```
+
+Commit changes:
+
+```bash
+git commit -m "Your commit message"
+```
+
+Amend last commit:
+
+```bash
+git commit --amend
+```
+
+## Branching
+
+Create and switch to a new branch:
+
+```bash
+git checkout -b feature-branch
+git switch -c feature-branch
+```
+
+List branches:
+
+```bash
+git branch
+git branch -a
+```
+
+Delete a branch:
+
+```bash
+git branch -d branch-name
+git branch -D branch-name
+```
+
+## Remote Operations
+
+Add a remote:
+
+```bash
+git remote add origin https://github.com/user/repo.git
+```
+
+Push to remote:
+
+```bash
+git push origin main
+git push -u origin feature-branch
+```
+
+Pull from remote:
+
+```bash
+git pull origin main
+```
+
+Fetch remote changes:
+
+```bash
+git fetch origin
+```
+
+## Undoing Changes
+
+Discard local changes:
+
+```bash
+git checkout -- filename.txt
+git restore filename.txt
+```
+
+Reset to previous commit:
+
+```bash
+git reset --soft HEAD~1
+git reset --hard HEAD~1
+```
+
+## Viewing History
+
+View commit history:
+
+```bash
+git log
+git log --oneline
+git log --graph --oneline --all
+```
+
+Show changes in a commit:
+
+```bash
+git show commit-hash
+```
